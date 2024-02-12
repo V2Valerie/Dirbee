@@ -1,3 +1,5 @@
+# Reminder I made this code using chatgpt, I know how dir buster works, but because my python skills lack, I had to use AI
+# So please feel free to contribute
 import requests
 from concurrent.futures import ThreadPoolExecutor
 from colorama import Fore, init
