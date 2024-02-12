@@ -10,7 +10,7 @@ def validate_url(url):
     try:
         if not url.startswith('http'):
             url = f'https://{url}'
-        response = requests.get(url)
+        response = requests.get(url, timeout=5)  # Timeout set to 5 seconds
         status = response.status_code
         if status == 200:
             logging.info(f"{url}: {Fore.GREEN}Exists{Fore.RESET}")
@@ -27,7 +27,7 @@ def validate_subfolders(url, subfolders):
     existing_count = 0
     not_existing_count = 0
 
-    with ThreadPoolExecutor(max_workers=5) as executor:
+    with ThreadPoolExecutor(max_workers=3) as executor:  # Adjust max_workers as needed
         futures = [executor.submit(validate_url, f"{url}/{subfolder}") for subfolder in subfolders]
 
         for future in futures:
@@ -54,3 +54,4 @@ if __name__ == "__main__":
         subfolder_list = [subfolder.strip() for subfolder in file.readlines()]
 
     validate_subfolders(main_url, subfolder_list)
+
